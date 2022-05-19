@@ -1,0 +1,15 @@
+@import './font.scss';
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-weight: bold;
+  background-color: var(--bg-color);
+  transition: all 0.3s ease-in;
+}

@@ -1,0 +1,18 @@
+.lightTheme {
+  --bg-color: hsl(0, 0%, 98%);
+  --elements-color: hsl(0, 0%, 100%);
+  --text-color: hsl(200, 15%, 8%);
+}
+
+.darkTheme {
+  --bg-color: hsl(207, 26%, 17%);
+  --elements-color: hsl(209, 23%, 22%);
+  --text-color: hsl(0, 0%, 100%);
+}
+
+.app {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+}
