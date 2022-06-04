@@ -7,8 +7,21 @@
 
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
-
   <body>
+    <script>
+      const mode = localStorage.getItem('theme') || 'system';
+      let theme;
+      if (mode === 'system') {
+        const isSystemInDarkMode = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+        theme = isSystemInDarkMode ? 'dark' : 'light';
+      } else {
+        theme = mode;
+      }
+      console.log(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
     <div id="root"></div>
   </body>
 </html>

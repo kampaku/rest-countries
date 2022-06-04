@@ -1,0 +1,14 @@
+.icon {
+  font-size: 22px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 16px;
+  color: var(--text-color);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}

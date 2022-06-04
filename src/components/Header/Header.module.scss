@@ -1,0 +1,15 @@
+.header {
+  padding: 20px;
+  font-size: 22px;
+  background-color: var(--elements-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease-in;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1400px;
+}
