@@ -1,7 +1,7 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const paths = require('./paths')
+const paths = require('./paths');
 
 module.exports = {
   entry: [paths.src + '/index.tsx'],
@@ -25,7 +25,7 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.(j|t)sx?$/, use: ['babel-loader']},
+      { test: /\.(j|t)sx?$/, use: ['babel-loader'] },
 
       {
         test: /\.svg$/,
@@ -64,5 +64,5 @@ module.exports = {
     alias: {
       '@': paths.src,
     },
-  },
-}
+  }
+};
