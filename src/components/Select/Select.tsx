@@ -13,7 +13,6 @@ const Select: FC<Props> = ({ onSelect }) => {
   };
   useEffect(() => {
     onSelect(value);
-    // console.log(value);
   }, [onSelect, value]);
   return (
     <div>
