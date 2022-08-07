@@ -1,0 +1,13 @@
+.link {
+  // display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.tag {
+  background-color: var(--elements-color);
+  box-shadow: var(--shadow);
+  color: var(--text-color);
+  line-height: 1.5;
+  padding: 0 10px;
+}
