@@ -9,7 +9,7 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js",
     "lint": "eslint src/*",
     "lint:fix": "eslint src/* --fix",
-    "pretttier": "prettier --write ./src"
+    "prettier": "prettier --write ./src"
   },
   "repository": {
     "type": "git",
