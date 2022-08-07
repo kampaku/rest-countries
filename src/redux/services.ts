@@ -26,3 +26,4 @@ const countryApi = createApi({
 export default countryApi;
 export const { useGetCountriesQuery } = countryApi;
 export const { useGetCountryQuery } = countryApi;
+export const { useGetBordersQuery } = countryApi;
