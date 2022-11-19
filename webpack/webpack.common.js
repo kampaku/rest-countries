@@ -8,12 +8,12 @@ module.exports = {
 
   output: {
     path: paths.build,
+    clean: true,
     filename: '[name].bundle.js',
     publicPath: '/',
   },
 
   plugins: [
-    new CleanWebpackPlugin(),
 
     new HtmlWebpackPlugin({
       title: 'App',
@@ -56,6 +56,10 @@ module.exports = {
         },
       },
     ],
+  },
+
+  experiments: {
+    lazyCompilation: true,
   },
 
   resolve: {
