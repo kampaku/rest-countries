@@ -58,10 +58,6 @@ module.exports = {
     ],
   },
 
-  experiments: {
-    lazyCompilation: true,
-  },
-
   resolve: {
     modules: [paths.src, 'node_modules'],
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
