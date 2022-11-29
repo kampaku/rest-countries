@@ -4,6 +4,8 @@
     "es2021": true
   },
   "extends": [
+    "plugin:effector/recommended",
+    "plugin:effector/scope",
     "plugin:react/recommended",
     "airbnb",
     "airbnb/hooks",
@@ -19,7 +21,13 @@
     "sourceType": "module"
   },
   "ignorePatterns": ["dist", "webpack", "test", "*.config.*"],
-  "plugins": ["react", "@typescript-eslint", "simple-import-sort", "import"],
+  "plugins": [
+    "effector",
+    "react",
+    "@typescript-eslint",
+    "simple-import-sort",
+    "import"
+  ],
   "rules": {
     "arrow-body-style": "off",
     "simple-import-sort/imports": "error",

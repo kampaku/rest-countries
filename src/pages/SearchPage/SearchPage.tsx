@@ -1,3 +1,4 @@
+import { useStore } from 'effector-react';
 import { useEffect, useState, useTransition } from 'react';
 import type { Country } from 'src/types/types';
 
@@ -7,16 +8,21 @@ import {
   Select,
   Spinner,
 } from '../../components';
-import { useGetCountriesQuery } from '../../redux/services';
-import { isErrorWithMessage } from '../../services/helper';
+import { $query } from '../../components/SearchBar/Model';
+import { $countriesStatus, pageMounted } from './Model';
 import styles from './SearchPage.module.scss';
 
 const SearchPage = () => {
   const [isPending, startTransition] = useTransition();
   const [region, setRegion] = useState<string>('all');
-  const { data, error, isLoading } = useGetCountriesQuery(region);
-  const [query, setQuery] = useState('');
+  const { countries: data, isLoading, error } = useStore($countriesStatus);
+  // const [query, setQuery] = useState('');
+  const query = useStore($query)
   const [countries, setCountries] = useState<Country[]>([]);
+
+  useEffect(() => {
+    pageMounted(region);
+  }, [region]);
 
   useEffect(() => {
     if (data) {
@@ -32,15 +38,15 @@ const SearchPage = () => {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <SearchBar onSearch={setQuery} />
+        <SearchBar />
         <Select onSelect={setRegion} />
       </div>
       <div className={styles.countries}>
         {error && (
-          <span>{isErrorWithMessage(error) && error.data.message}</span>
+          <span>{error.error.message}</span>
         )}
         {(isLoading || isPending) && <Spinner />}
-        {countries && <CountriesContainer countries={countries} />}
+        {(countries && !isLoading && !error) && <CountriesContainer countries={countries} />}
       </div>
     </div>
   );

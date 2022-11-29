@@ -1,16 +1,15 @@
-import type { ChangeEvent, FC } from 'react';
+import { useEvent } from 'effector-react';
+import type { ChangeEvent } from 'react';
 import { MdSearch } from 'react-icons/md';
 
+import { inputChanged } from './Model';
 import styles from './SearchBar.module.scss';
 
-type Props = {
-  onSearch: (query: string) => void;
-};
-
-const SearchBar: FC<Props> = ({ onSearch }) => {
+const SearchBar = () => {
+  const inputEvent = useEvent(inputChanged);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
-    onSearch(target.value);
+    inputEvent(target.value);
   };
   return (
     <label className={styles.wrapper}>

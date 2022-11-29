@@ -1,34 +1,50 @@
-import { FC, useEffect, useState } from 'react';
+import { useEvent, useStore } from 'effector-react';
+import React, { FC, memo,useEffect } from 'react';
+import type { Region } from 'src/types/types';
 
+import { $filter, filterChanged } from './Model';
 import styles from './Select.module.scss';
 
 type Props = {
   onSelect: (region: string) => void;
 };
-const Select: FC<Props> = ({ onSelect }) => {
-  const [value, setValue] = useState('all');
 
-  const onChange = (val: string) => {
-    setValue(val);
+type optionsType = {
+  value: Region;
+  label: string;
+};
+const options: optionsType[] = [
+  { value: 'all', label: 'All' },
+  { value: 'africa', label: 'Africa' },
+  { value: 'america', label: 'America' },
+  { value: 'asia', label: 'Asia' },
+  { value: 'europe', label: 'Europe' },
+  { value: 'oceania', label: 'Oceania' },
+];
+
+const Select: FC<Props> = memo(({ onSelect }) => {
+  const filter = useStore($filter);
+  const changed = useEvent(filterChanged);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value: Region = e.target.value as Region;
+    changed(value);
   };
+
   useEffect(() => {
-    onSelect(value);
-  }, [onSelect, value]);
+    onSelect(filter);
+  }, [onSelect, filter]);
   return (
     <div>
-      <select
-        className={styles.select}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        <option value="all">All</option>
-        <option value="africa">Africa</option>
-        <option value="america">America</option>
-        <option value="asia">Asia</option>
-        <option value="europe">Europe</option>
-        <option value="oceania">Oceania</option>
+      <select className={styles.select} onChange={handleChange}>
+        {options.map(({ value, label }) => (
+          <option value={value} defaultValue={filter} key={value}>
+            {label}
+          </option>
+        ))}
       </select>
     </div>
   );
-};
+});
 
 export { Select };

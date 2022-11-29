@@ -234,7 +234,7 @@ export interface Country {
   translations: Translations;
   latlng: number[];
   landlocked: boolean;
-  borders: string[] | undefined;
+  borders?: string[];
   area: number;
   demonyms: Demonyms;
   flag: string;
@@ -251,6 +251,11 @@ export interface Country {
   capitalInfo: CapitalInfo;
   postalCode: PostalCode;
 }
+
+export type CountryWithNeighbors = {
+  borders: string[];
+} & Country;
+
 
 export type Region =
   | 'all'

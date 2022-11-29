@@ -1,6 +1,7 @@
+import { useStore } from 'effector-react';
 import type { FC } from 'react';
 
-import { useGetBordersQuery } from '../../redux/services';
+import { $neighborsCountries } from '../../pages/CountryPage/Model';
 import type { Country } from '../../types/types';
 import { CountryTag } from '../index';
 import styles from './CountryDetails.module.scss';
@@ -23,7 +24,6 @@ type Props = {
 
 const CountryDetails: FC<Props> = ({
   data: {
-    borders,
     capital,
     currencies,
     flags,
@@ -38,15 +38,12 @@ const CountryDetails: FC<Props> = ({
   const currency = currencies && Object.values(currencies);
   const nativeName = name.nativeName && Object.values(name.nativeName);
   const langs = languages && Object.values(languages);
-
-  const { data: neighbors } = useGetBordersQuery(borders || [''], {
-    skip: typeof borders === 'undefined',
-  });
+  const neighbors = useStore($neighborsCountries);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.flag}>
-        <img src={flags.svg} alt="flag" className={styles.flag} />
+        <img src={flags.svg} alt={`${name.common}'s flag`} className={styles.flag} />
       </div>
       <div className={styles.info}>
         <span className={styles.name}>{name.common}</span>
