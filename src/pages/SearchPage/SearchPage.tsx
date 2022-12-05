@@ -7,13 +7,15 @@ import {
   Select,
   Spinner,
 } from '../../components';
+import { selectedRegion } from '../../components/Select/select-slice';
 import { useGetCountriesQuery } from '../../redux/services';
+import { useAppSelector } from '../../redux/store';
 import { isErrorWithMessage } from '../../services/helper';
 import styles from './SearchPage.module.scss';
 
 const SearchPage = () => {
   const [isPending, startTransition] = useTransition();
-  const [region, setRegion] = useState<string>('all');
+  const region = useAppSelector(selectedRegion);
   const { data, error, isLoading } = useGetCountriesQuery(region);
   const [query, setQuery] = useState('');
   const [countries, setCountries] = useState<Country[]>([]);
@@ -33,7 +35,7 @@ const SearchPage = () => {
     <div className={styles.page}>
       <div className={styles.header}>
         <SearchBar onSearch={setQuery} />
-        <Select onSelect={setRegion} />
+        <Select />
       </div>
       <div className={styles.countries}>
         {error && (

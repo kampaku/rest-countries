@@ -1,31 +1,43 @@
-import { FC, useEffect, useState } from 'react';
+import type { Region } from 'src/types/types';
 
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import styles from './Select.module.scss';
+import { selectedRegion, setSelect } from './select-slice';
 
-type Props = {
-  onSelect: (region: string) => void;
+type optionsType = {
+  value: Region;
+  label: string;
 };
-const Select: FC<Props> = ({ onSelect }) => {
-  const [value, setValue] = useState('all');
 
-  const onChange = (val: string) => {
-    setValue(val);
+const options: optionsType[] = [
+  { value: 'all', label: 'All' },
+  { value: 'africa', label: 'Africa' },
+  { value: 'america', label: 'America' },
+  { value: 'asia', label: 'Asia' },
+  { value: 'europe', label: 'Europe' },
+  { value: 'oceania', label: 'Oceania' },
+];
+const Select = () => {
+  const filter = useAppSelector(selectedRegion);
+  const dispatch = useAppDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value: Region = e.target.value as Region;
+    dispatch(setSelect(value));
   };
-  useEffect(() => {
-    onSelect(value);
-  }, [onSelect, value]);
+
   return (
     <div>
       <select
         className={styles.select}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
+        defaultValue={filter}
       >
-        <option value="all">All</option>
-        <option value="africa">Africa</option>
-        <option value="america">America</option>
-        <option value="asia">Asia</option>
-        <option value="europe">Europe</option>
-        <option value="oceania">Oceania</option>
+        {options.map(({ value, label }) => (
+          <option value={value} key={value}>
+            {label}
+          </option>
+        ))}
       </select>
     </div>
   );
