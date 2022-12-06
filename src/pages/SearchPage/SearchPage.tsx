@@ -1,5 +1,4 @@
-import { useEffect, useState, useTransition } from 'react';
-import type { Country } from 'src/types/types';
+import { useDeferredValue, useMemo, useState } from 'react';
 
 import {
   CountriesContainer,
@@ -14,22 +13,17 @@ import { isErrorWithMessage } from '../../services/helper';
 import styles from './SearchPage.module.scss';
 
 const SearchPage = () => {
-  const [isPending, startTransition] = useTransition();
   const region = useAppSelector(selectedRegion);
   const { data, error, isLoading } = useGetCountriesQuery(region);
   const [query, setQuery] = useState('');
-  const [countries, setCountries] = useState<Country[]>([]);
 
-  useEffect(() => {
-    if (data) {
-      startTransition(() => {
-        const filteredCountries = data.filter((country) =>
-          country.name.common.toLowerCase().includes(query.toLowerCase())
-        );
-        setCountries(filteredCountries);
-      });
-    }
-  }, [query, data, startTransition]);
+  const countries = useDeferredValue(
+    useMemo(() => {
+      return data?.filter((country) =>
+        country.name.common.toLowerCase().includes(query.toLowerCase())
+      );
+    }, [query, data])
+  );
 
   return (
     <div className={styles.page}>
@@ -41,7 +35,7 @@ const SearchPage = () => {
         {error && (
           <span>{isErrorWithMessage(error) && error.data.message}</span>
         )}
-        {(isLoading || isPending) && <Spinner />}
+        {isLoading && <Spinner />}
         {countries && <CountriesContainer countries={countries} />}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import type { Country } from '../../types/types';
@@ -8,7 +8,7 @@ type Props = {
   data: Pick<Country, 'name' | 'population' | 'region' | 'capital' | 'flags'>;
 };
 
-const CountryCard: FC<Props> = ({
+const CountryCard: FC<Props> = memo(({
   data: { capital, name, population, region, flags },
 }) => {
   return (
@@ -33,6 +33,6 @@ const CountryCard: FC<Props> = ({
       </div>
     </Link>
   );
-};
+});
 
 export { CountryCard };
