@@ -13,6 +13,7 @@ const prodConfig: Configuration = merge(common, {
     path: paths.build,
     publicPath: '/',
     filename: 'js/[name].[contenthash].bundle.js',
+    chunkFilename: 'js/[name].[contenthash].bundle.js'
   },
   module: {
     rules: [
@@ -44,8 +45,18 @@ const prodConfig: Configuration = merge(common, {
   optimization: {
     minimize: true,
     minimizer: [new CssMinimizerPlugin(), '...'],
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendors',
+          test: /node_modules/,
+          chunks: 'all',
+          // enforce: true,
+        },
+      },
+    },
     runtimeChunk: {
-      name: 'runtime',
+      name: 'single',
     },
   },
   performance: {
