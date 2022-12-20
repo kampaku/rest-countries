@@ -11,7 +11,7 @@ const prodConfig: Configuration = merge(common, {
   devtool: 'source-map',
   output: {
     path: paths.build,
-    publicPath: './',
+    publicPath: '/',
     filename: 'js/[name].[contenthash].bundle.js',
   },
   module: {
