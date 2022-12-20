@@ -1,17 +1,17 @@
-const webpack = require('webpack')
-const { merge } = require('webpack-merge')
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+import type { Configuration } from 'webpack';
+import  'webpack-dev-server'
+import { merge } from 'webpack-merge';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
-const common = require('./webpack.common.js')
-const paths = require('./paths')
+import common from './webpack.common';
 
-module.exports = merge(common, {
+const devConfig: Configuration = merge<Configuration>(common, {
   mode: 'development',
   cache: {
     type: 'filesystem',
     buildDependencies: {
       config: [__filename],
-    }
+    },
   },
 
   devtool: 'eval-source-map',
@@ -23,8 +23,8 @@ module.exports = merge(common, {
     port: 3003,
     hot: true,
     client: {
-      overlay: true
-    }
+      overlay: true,
+    },
   },
 
   module: {
@@ -47,16 +47,14 @@ module.exports = merge(common, {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: [
-              'react-refresh/babel'
-            ]
-          }
-        }
+            plugins: ['react-refresh/babel'],
+          },
+        },
       },
     ],
   },
 
-  plugins: [
-    new ReactRefreshWebpackPlugin()
-  ],
-})
+  plugins: [new ReactRefreshWebpackPlugin()],
+});
+
+export default devConfig;

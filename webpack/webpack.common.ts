@@ -1,9 +1,11 @@
+import type { Configuration } from 'webpack';
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const paths = require('./paths');
+import paths from './paths';
 
-module.exports = {
+const config: Configuration = {
   entry: [paths.src + '/index.tsx'],
 
   output: {
@@ -66,3 +68,5 @@ module.exports = {
     },
   }
 };
+
+export default config;

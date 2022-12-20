@@ -1,11 +1,12 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const { merge } = require('webpack-merge')
+import type { Configuration } from 'webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { merge } from 'webpack-merge';
 
-const paths = require('./paths')
-const common = require('./webpack.common.js')
+import paths from './paths';
+import common from './webpack.common';
 
-module.exports = merge(common, {
+const prodConfig: Configuration = merge(common, {
   mode: 'production',
   devtool: 'source-map',
   output: {
@@ -52,4 +53,6 @@ module.exports = merge(common, {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
-})
+});
+
+export default prodConfig;

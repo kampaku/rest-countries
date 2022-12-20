@@ -1,6 +1,7 @@
-const path = require('path')
+import * as path from 'path';
+// const path = require('path')
 
-module.exports = {
+const paths = {
   // Source files
   src: path.resolve(__dirname, '../src'),
 
@@ -10,3 +11,4 @@ module.exports = {
   // Static files that get copied to build folder
   public: path.resolve(__dirname, '../public'),
 }
+export default paths;
